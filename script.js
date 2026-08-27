@@ -1,13 +1,9 @@
 /**
- * ==========================================================================
- * معلم دهانات جدة المحترف - محرك التتبع والتفاعل فائق السرعة
- * Vanilla JS | Google Ads Conversion Tracking Engine | Zero Blocking (CWV)
- * ==========================================================================
+ * معلم دهانات جدة المحترف - المحرك البرمجي المحدث للتفاعل والتتبع
  */
 
 'use strict';
 
-// 1. الإعدادات العامة والمتغيرات
 const CONFIG = {
   clientPhone: '0558713352',
   clientPhoneIntl: '966558713352',
@@ -18,7 +14,6 @@ const CONFIG = {
   formConversionLabel: 'xxxxxxxxxxxxxxxxxxx'
 };
 
-// 2. تحميل كود تتبع إعلانات قوقل بطريقة غير حاجزة للأداء (Idle Execution)
 function initGoogleTagManager() {
   const loadGtag = () => {
     if (window.gtagLoaded) return;
@@ -36,21 +31,16 @@ function initGoogleTagManager() {
     window.gtag = gtag;
 
     gtag('js', new Date());
-    gtag('config', CONFIG.adsConversionId, {
-      send_page_view: true
-    });
+    gtag('config', CONFIG.adsConversionId, { send_page_view: true });
   };
 
   if ('requestIdleCallback' in window) {
     window.requestIdleCallback(loadGtag, { timeout: 3500 });
   } else {
-    window.addEventListener('load', () => {
-      setTimeout(loadGtag, 1500);
-    });
+    window.addEventListener('load', () => setTimeout(loadGtag, 1500));
   }
 }
 
-// 3. دالة إرسال تحويلات إعلانات قوقل
 function trackGoogleAdsConversion(conversionLabel, callback) {
   let callbackFired = false;
   const executeCallback = () => {
@@ -60,7 +50,6 @@ function trackGoogleAdsConversion(conversionLabel, callback) {
     }
   };
 
-  // مهلة زمنية احتياطية في حال تعثر إرسال الحدث
   const timeoutId = setTimeout(executeCallback, 500);
 
   if (typeof window.gtag === 'function' && CONFIG.adsConversionId !== 'AW-xxxxxxxxxxxxx') {
@@ -77,15 +66,10 @@ function trackGoogleAdsConversion(conversionLabel, callback) {
   }
 }
 
-// 4. معالجة نقرات الاتصال الهاتفي
 function handleCallClick(event) {
   const target = event.currentTarget;
   const phone = target.getAttribute('data-phone') || CONFIG.clientPhoneIntl;
-
-  // استثناء رقم المطور لمنع إرسال إحالات غير صحيحة
-  if (phone.includes('578539687')) {
-    return true;
-  }
+  if (phone.includes('578539687')) return true;
 
   if (event.isTrusted) {
     trackGoogleAdsConversion(CONFIG.callConversionLabel, null);
@@ -93,15 +77,10 @@ function handleCallClick(event) {
   return true;
 }
 
-// 5. معالجة نقرات الواتساب
 function handleWhatsAppClick(event) {
   const target = event.currentTarget;
   const href = target.getAttribute('href') || '';
-
-  // استثناء رقم المطور
-  if (href.includes(CONFIG.devPhoneIntl)) {
-    return true;
-  }
+  if (href.includes(CONFIG.devPhoneIntl)) return true;
 
   if (event.isTrusted) {
     trackGoogleAdsConversion(CONFIG.whatsappConversionLabel, null);
@@ -109,43 +88,60 @@ function handleWhatsAppClick(event) {
   return true;
 }
 
-// 6. تشغيل القائمة المتنقلة (Mobile Hamburger Menu)
+// تشغيل القائمة المتنقلة بنسبة 100% بدون أي تعليق
 function setupMobileMenu() {
   const hamburgerBtn = document.getElementById('hamburgerBtn');
   const mobileNav = document.getElementById('mobileNav');
+  const mobileNavClose = document.getElementById('mobileNavClose');
 
   if (!hamburgerBtn || !mobileNav) return;
 
-  function toggleMenu(isOpen) {
-    hamburgerBtn.classList.toggle('active', isOpen);
-    mobileNav.classList.toggle('open', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-    hamburgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  function openMenu() {
+    hamburgerBtn.classList.add('active');
+    mobileNav.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
   }
 
-  hamburgerBtn.addEventListener('click', () => {
-    const willOpen = !mobileNav.classList.contains('open');
-    toggleMenu(willOpen);
+  function closeMenu() {
+    hamburgerBtn.classList.remove('active');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+  }
+
+  hamburgerBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (mobileNav.classList.contains('open')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
   });
+
+  if (mobileNavClose) {
+    mobileNavClose.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeMenu();
+    });
+  }
 
   mobileNav.addEventListener('click', (e) => {
     if (e.target === mobileNav || e.target.closest('a')) {
-      toggleMenu(false);
+      closeMenu();
     }
   });
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
-      toggleMenu(false);
+      closeMenu();
     }
   });
 }
 
-// 7. زر التمرير للأعلى السلس
 function setupScrollToTop() {
   const scrollContainer = document.getElementById('scrollTopContainer');
   const scrollBtn = document.getElementById('scrollTopBtn');
-
   if (!scrollContainer || !scrollBtn) return;
 
   window.addEventListener('scroll', () => {
@@ -157,14 +153,10 @@ function setupScrollToTop() {
   }, { passive: true });
 
   scrollBtn.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 }
 
-// 8. تهيئة حاسبة تكلفة الدهانات التفاعلية
 function setupPaintCalculator() {
   const calcForm = document.getElementById('paintCalculatorForm');
   if (!calcForm) return;
@@ -195,7 +187,6 @@ function setupPaintCalculator() {
   calculate();
 }
 
-// 9. تشغيل النماذج الذكية (.smart-lead-form)
 function setupSmartLeadForms() {
   const forms = document.querySelectorAll('.smart-lead-form');
 
@@ -223,7 +214,6 @@ function setupSmartLeadForms() {
   });
 }
 
-// 10. إعداد أسئلة وأجوبة الأكورديون (FAQ Accordion)
 function setupFaqAccordion() {
   const faqItems = document.querySelectorAll('.faq-item');
 
@@ -241,7 +231,6 @@ function setupFaqAccordion() {
   });
 }
 
-// 11. ربط مستمعات الأحداث بعد جاهزية DOM
 document.addEventListener('DOMContentLoaded', () => {
   initGoogleTagManager();
   setupMobileMenu();
@@ -250,7 +239,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setupSmartLeadForms();
   setupFaqAccordion();
 
-  // ربط جميع روابط الاتصال والواتساب بالتحويلات تلقائياً
   document.querySelectorAll('a[href^="tel:"]').forEach((link) => {
     link.addEventListener('click', handleCallClick);
   });
