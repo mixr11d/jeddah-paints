@@ -1,5 +1,7 @@
 /**
+ * ==========================================================================
  * معلم دهانات جدة المحترف - المحرك البرمجي المحدث للتفاعل والتتبع
+ * ==========================================================================
  */
 
 'use strict';
@@ -88,7 +90,7 @@ function handleWhatsAppClick(event) {
   return true;
 }
 
-// تشغيل القائمة المتنقلة بنسبة 100% بدون أي تعليق
+// القائمة المتنقلة للجوال
 function setupMobileMenu() {
   const hamburgerBtn = document.getElementById('hamburgerBtn');
   const mobileNav = document.getElementById('mobileNav');
