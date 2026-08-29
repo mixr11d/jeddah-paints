@@ -140,19 +140,22 @@ p:last-child { margin-bottom: 0; }
   font-weight: 700;
 }
 
-/* Buttons */
+/* Buttons (حل مشكلة النصوص الطويلة في الجوال) */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.85rem 1.25rem;
   border-radius: var(--radius-md);
-  font-weight: 600;
+  font-weight: 700;
   text-align: center;
   transition: all var(--transition-fast);
-  min-height: 48px;
-  white-space: nowrap;
+  min-height: 50px;
+  white-space: normal; /* يسمح بالتفاف النص للجوال */
+  line-height: 1.35;
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
 .btn-primary {
@@ -320,7 +323,7 @@ p:last-child { margin-bottom: 0; }
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* Mobile Navigation Panel (Fully Functional) */
+/* Mobile Navigation Panel */
 .mobile-nav {
   position: fixed;
   inset: 0;
@@ -741,10 +744,7 @@ p:last-child { margin-bottom: 0; }
   max-height: 300px;
 }
 
-/* ==========================================================================
-   الأزرار العائمة الفاخرة + التأثيرات الحركية (Luxury Pulse Animations)
-   ========================================================================== */
-
+/* Luxury Floating CTAs */
 @keyframes luxury-pulse-green {
   0% {
     box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6), 0 8px 20px rgba(0, 0, 0, 0.25);
@@ -867,10 +867,7 @@ p:last-child { margin-bottom: 0; }
   border-color: rgba(255, 255, 255, 0.4);
 }
 
-/* ==========================================================================
-   Footer Styling & Zero-Overlap Mobile System
-   ========================================================================== */
-
+/* Footer & Zero Overlap */
 .footer {
   background-color: var(--primary-dark);
   color: #94a3b8;
@@ -991,10 +988,7 @@ p:last-child { margin-bottom: 0; }
   color: #ffffff;
 }
 
-/* ==========================================================================
-   Responsive Breakpoints
-   ========================================================================== */
-
+/* Responsive */
 @media (max-width: 991px) {
   .nav-menu {
     display: none;
@@ -1005,7 +999,6 @@ p:last-child { margin-bottom: 0; }
 }
 
 @media (max-width: 768px) {
-  /* مسافة أمان سفلية ضخمة تمنع تغطية الأزرار العائمة للفوتر في الجوال */
   .footer-bottom {
     padding-bottom: 95px !important;
   }
