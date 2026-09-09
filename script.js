@@ -10,10 +10,10 @@ const CONFIG = {
   clientPhone: '0558713352',
   clientPhoneIntl: '966558713352',
   devPhoneIntl: '966578539687',
-  adsConversionId: 'AW-xxxxxxxxxxxxx',
-  callConversionLabel: 'xxxxxxxxxxxxxxxxx',
-  whatsappConversionLabel: 'xxxxxxxxxxxxxx',
-  formConversionLabel: 'xxxxxxxxxxxxxxxxxxx'
+  adsConversionId: 'AW-16812257575',
+  callConversionLabel: 'tw5PCJDA8_EcEKfi2tA-',
+  whatsappConversionLabel: 'Jv84CJPA8_EcEKfi2tA-',
+  formConversionLabel: 'VWfmCInL8_EcEKfi2tA-'
 };
 
 function initGoogleTagManager() {
